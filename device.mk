@@ -20,7 +20,8 @@ DEVICE_PATH := device/xiaomi/rolex
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += \
     $(DEVICE_PATH)/overlay \
-    $(DEVICE_PATH)/overlay-lineage
+    $(DEVICE_PATH)/overlay-lineage \
+    $(DEVICE_PATH)/overlay-rssnr
 
 PRODUCT_ENFORCE_RRO_TARGETS := \
     framework-res
