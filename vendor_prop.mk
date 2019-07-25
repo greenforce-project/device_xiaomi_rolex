@@ -124,6 +124,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     mm.enable.qcom_parser=4176895 \
     media.stagefright.audio.sink=280 \
+    mm.enable.sec.smoothstreaming=true \
     debug.stagefright.omx_default_rank.sw-audio=1 \
     debug.stagefright.omx_default_rank=0 \
     vendor.vidc.disable.split.mode=1 \
