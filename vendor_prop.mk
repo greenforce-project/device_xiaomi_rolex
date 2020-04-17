@@ -46,6 +46,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.service.bdroid.sibs=false \
     vendor.qcom.bluetooth.soc=smd
 
 # Boot
