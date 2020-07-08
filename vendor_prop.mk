@@ -113,7 +113,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.display.disable_rotator_split=1 \
     vendor.display.disable_skip_validate=1 \
     vendor.gralloc.enable_fb_ubwc=1 \
-    sys.display-size=1920x1080
+    sys.display-size=1280x720
 
 # IMS
 PRODUCT_PROPERTY_OVERRIDES += \
