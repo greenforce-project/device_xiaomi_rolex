@@ -43,6 +43,9 @@ on init
 
     write /sys/module/qpnp_rtc/parameters/poweron_alarm 1
 
+    # VFS chache preasure
+    write /proc/sys/vm/vfs_cache_pressure 100
+
 on post-fs
     chmod 0755 /sys/kernel/debug/tracing
 
