@@ -405,14 +405,6 @@ function configure_read_ahead_kb_values() {
     fi
 }
 
-function disable_core_ctl() {
-    if [ -f /sys/devices/system/cpu/cpu0/core_ctl/enable ]; then
-        echo 0 > /sys/devices/system/cpu/cpu0/core_ctl/enable
-    else
-        echo 1 > /sys/devices/system/cpu/cpu0/core_ctl/disable
-    fi
-}
-
 function enable_swap() {
     MemTotalStr=`cat /proc/meminfo | grep MemTotal`
     MemTotal=${MemTotalStr:16:8}
@@ -466,11 +458,10 @@ else
 
     # Set parameters for 32-bit Go targets.
     if [ "$low_ram" == "true" ]; then
-        # Disable KLMK, ALMK, PPR & Core Control for Go devices
+        # Disable KLMK, ALMK, & PPR for Go devices
         echo 0 > /sys/module/lowmemorykiller/parameters/enable_lmk
         echo 0 > /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk
         echo 0 > /sys/module/process_reclaim/parameters/enable_process_reclaim
-        disable_core_ctl
         # Enable oom_reaper for Go devices
         if [ -f /proc/sys/vm/reap_mem_on_sigkill ]; then
             echo 1 > /proc/sys/vm/reap_mem_on_sigkill
@@ -505,9 +496,8 @@ else
             echo $vmpres_file_min > /sys/module/lowmemorykiller/parameters/vmpressure_file_min
         else
             # Set LMK series, vmpressure_file_min for 32 bit non-go targets.
-            # Disable Core Control, enable KLMK for non-go 8909.
+            # Enable KLMK for non-go 8909.
             if [ "$ProductName" == "msm8909" ]; then
-                disable_core_ctl
                 echo 1 > /sys/module/lowmemorykiller/parameters/enable_lmk
             fi
         echo "15360,19200,23040,26880,34415,43737" > /sys/module/lowmemorykiller/parameters/minfree
@@ -2135,9 +2125,6 @@ case "$target" in
 
                 #disable sched_boost in 8917
                 echo 0 > /proc/sys/kernel/sched_boost
-
-		# core_ctl is not needed for 8917. Disable it.
-                disable_core_ctl
 
                 for devfreq_gov in /sys/class/devfreq/qcom,mincpubw*/governor
                 do
